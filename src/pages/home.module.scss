@@ -1,1 +1,58 @@
-// TODO
+.postListContainer {
+  width: 100%;
+}
+
+.post {
+  display: block;
+
+  & + a {
+    margin-top: 3rem;
+  }
+}
+
+.postHeading {
+  font: 700 1.8rem/1.8rem "Inter";
+  color: var(--gray-50);
+  margin-bottom: 0.7rem;
+}
+
+.postSubtitle {
+  margin-bottom: 1.5rem;
+}
+
+.postDetails {
+  > span + span {
+    margin-left: 1.5rem;
+  }
+
+  > span {
+    display: inline-flex;
+    align-items: center;
+    color: var(--gray-200);
+
+    svg {
+      font-size: 1.2rem;
+      margin-right: 0.4rem;
+    }
+  }
+}
+
+.buttonsContainer {
+  width: 100%;
+  padding: 2rem 0;
+}
+
+.buttonLoadMore {
+  background: transparent;
+  border: none;
+  font-weight: bold;
+  color: var(--pink-500);
+  cursor: pointer;
+  padding: 10px 0;
+
+  transition: all 0.5s;
+  &:hover {
+    filter: brightness(80%);
+  }
+}
+

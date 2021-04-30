@@ -10,6 +10,10 @@
 
 .header {
   padding-bottom: 2rem;
+
+  > span {
+    margin-top: 2rem;
+  }
 }
 
 .title {
@@ -46,4 +50,55 @@
   font: 400 1rem "Inter";
   color: var(--gray-200);
   padding: 1rem 1rem 1.5rem 1rem;
+}
+
+.footer {
+  display: flex;
+  flex-direction: column;
+
+  margin-bottom: 2rem;
+}
+
+.divider {
+  width: 100%;
+  border-bottom: 2px solid;
+  border-bottom-color: var(--gray-100);
+  opacity: 0.1;
+  margin: 1rem 0;
+}
+
+.navigation {
+  display: flex;
+  justify-content: space-between;
+  margin: 1rem 0;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
+}
+
+.navLink {
+  display: flex;
+  flex-direction: column;
+
+  &:first-child {
+    text-align: left;
+  }
+
+  &:last-child {
+    text-align: right;
+  }
+
+  > span {
+    color: var(--gray-50);
+    font-size: 1.2rem;
+  }
+
+  > strong {
+    color: var(--pink-500);
+  }
+
+  @media (max-width: 768px) {
+    margin-bottom: 1.5rem;
+  }
 }

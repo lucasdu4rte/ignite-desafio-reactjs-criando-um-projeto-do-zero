@@ -6,7 +6,7 @@ interface HeaderProps {
   pageTitle?: string;
 }
 
-export default function Header({ pageTitle }: HeaderProps): JSX.Element {
+export function Header({ pageTitle }: HeaderProps): JSX.Element {
   return (
     <>
       <Head>

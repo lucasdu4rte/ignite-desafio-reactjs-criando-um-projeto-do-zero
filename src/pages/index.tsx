@@ -1,4 +1,4 @@
-import { GetStaticPaths, GetStaticProps } from 'next';
+import { GetStaticProps } from 'next';
 import { useState } from 'react';
 import Link from 'next/link';
 import Prismic from '@prismicio/client';
@@ -7,7 +7,8 @@ import { FiCalendar, FiUser } from 'react-icons/fi';
 import { getPrismicClient } from '../services/prismic';
 import { formatDate } from '../utils/formatDate';
 
-import Header from '../components/Header';
+import { Header } from '../components/Header';
+import { ExitPreviewButton } from '../components/ExitPreviewButton';
 
 import commonStyles from '../styles/common.module.scss';
 import styles from './home.module.scss';
@@ -29,9 +30,13 @@ interface PostPagination {
 
 interface HomeProps {
   postsPagination: PostPagination;
+  preview: boolean;
 }
 
-export default function Home({ postsPagination }: HomeProps): JSX.Element {
+export default function Home({
+  postsPagination,
+  preview,
+}: HomeProps): JSX.Element {
   const { results, next_page } = postsPagination;
 
   const [posts, setPosts] = useState(results);
@@ -85,19 +90,17 @@ export default function Home({ postsPagination }: HomeProps): JSX.Element {
             </button>
           )}
         </section>
+
+        <ExitPreviewButton preview={preview} />
       </main>
     </>
   );
 }
 
-export const getStaticPaths: GetStaticPaths = async () => {
-  return {
-    paths: [],
-    fallback: 'blocking',
-  };
-};
-
-export const getStaticProps: GetStaticProps = async () => {
+export const getStaticProps: GetStaticProps = async ({
+  preview = false,
+  previewData,
+}) => {
   const prismic = getPrismicClient();
 
   const postsResponse = await prismic.query(
@@ -105,6 +108,8 @@ export const getStaticProps: GetStaticProps = async () => {
     {
       fetch: ['post.title', 'post.subtitle', 'post.author'],
       pageSize: 3,
+      ref: previewData?.ref ?? null,
+      orderings: '[document.first_publication_date desc]',
     }
   );
 
@@ -115,6 +120,7 @@ export const getStaticProps: GetStaticProps = async () => {
         next_page: postsResponse.next_page,
         results: postsResponse.results,
       },
+      preview,
     },
   };
 };
